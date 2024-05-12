@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   variadic.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alejandroramirez <alejandroramirez@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:20:27 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/10 17:42:20 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/11 15:31:58 by alejandrora      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -23,6 +24,11 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
 }
 
 void	ft_putnbr_fd(int n, int fd)
@@ -45,20 +51,34 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 }
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_hexa(int n)
 {
-	write(fd, &c, 1);
+	char	*hex;
+	int		i;
+
+	i = 0;
+	hex = "0123456789ABCDEF";
+	while (n % 16 > 1)
+	{
+		if (n % 16 < 16)
+			ft_putchar_fd(hex[n % 16], 1);
+		else
+			n = n / 16;
+	}
 }
+
 void	ft_write_options(va_list val, char c)
 {
 	if (c == 'd')
-	{
 		ft_putnbr_fd(va_arg(val, int), 1);
-	}
 	else if (c == 's')
-	{
 		ft_putstr_fd(va_arg(val, char *), 1);
-	}
+	else if (c == 'c')
+		ft_putchar_fd(va_arg(val, char), 1);
+	else if (c == 'p')
+		ft_putstr_fd(va_arg(val, char *), 1);
+	else if (c == 's')
+		ft_putstr_fd(va_arg(val, char *), 1);
 }
 
 int	ft_printf(const char *format, ...)
@@ -83,7 +103,17 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	int		a;
+	int	n;
+
+	n = 32;
+	ft_hexa(n);
+	return(0);
+
+
+
+
+
+	/* int		a;
 	int		b;
 	int		c;
 	char	*s1;
@@ -101,5 +131,5 @@ int	main(void)
 	ft_printf("Test 2: just strings\n");
 	ft_printf("Areté = %s. Areté = %s. Areté = %s.\n\n\n", s1, s2, s3);
 	ft_printf("Test 3: just integers\n");
-	ft_printf("Areté = %d. Areté = %d. Areté = %d.\n\n\n", a, b, c);
+	ft_printf("Areté = %d. Areté = %d. Areté = %d.\n\n\n", a, b, c); */
 }
