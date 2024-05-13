@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:20:27 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/13 09:20:00 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:43:26 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,21 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 }
 
-void	ft_hexa(int n)
+void	ft_hexa(unsigned long n, char format)
 {
 	char	*hex;
 	int		i;
 
 	i = 0;
-	hex = "0123456789ABCDEF";
+	if (format == 'x')
+		hex = "0123456789abcdef";
+	else
+		hex = "0123456789ABCDEF";
 	if (n > 0)
 	{
-		ft_hexa(n / 16);
+		i = 1 + ft_hexa(n / 16, format);
 		ft_putchar_fd(hex[n % 16], 1);
+		return (i);
 	}
 }
 
@@ -74,7 +78,7 @@ void	ft_write_options(va_list val, char c)
 	else if (c == 'c')
 		ft_putchar_fd(va_arg(val, char), 1);
 	else if (c == 'p')
-		ft_putstr_fd(va_arg(val, char *), 1);
+		ft_hexa((long)va_arg(val, char *));
 	else if (c == 's')
 		ft_putstr_fd(va_arg(val, char *), 1);
 }
@@ -101,10 +105,37 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	int	n;
+	int		n;
+	char	*p;
 
+	n = 0;
+	p = &n;
+	ft_printf("Test 1: n = 0\n");
+	ft_hexa(n);
+	ft_printf("\n\n\n");
+
+	ft_printf("Test 2: n = 287\n");
 	n = 287;
 	ft_hexa(n);
+	ft_printf("\n\n\n");
+
+	ft_printf("Test 3: n = 9001\n");
+	n = 9001;
+	ft_hexa(n);
+	ft_printf("\n\n\n");
+
+	ft_printf("Test 4: n = 99\n");
+	n = 99;
+	ft_hexa(n);
+	ft_printf("\n\n\n");
+
+	ft_printf("Test 5: n = long\n");
+	ft_hexa((long)p);
+		ft_printf("\n\n\n");
+
+	ft_printf("Test 6: n = pointer\n");
+	printf("Pointer address: %p Integer address: %ld\n", p, (long)p);
+
 	return(0);
 
 
