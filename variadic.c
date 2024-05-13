@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variadic.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alejandroramirez <alejandroramirez@stud    +#+  +:+       +#+        */
+/*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:20:27 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/11 15:31:58 by alejandrora      ###   ########.fr       */
+/*   Updated: 2024/05/13 09:20:00 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
+	void	ft_putchar_fd(char c, int fd)
+	{
+		write(fd, &c, 1);
+	}
 
 void	ft_putnbr_fd(int n, int fd)
 {
@@ -58,12 +58,10 @@ void	ft_hexa(int n)
 
 	i = 0;
 	hex = "0123456789ABCDEF";
-	while (n % 16 > 1)
+	if (n > 0)
 	{
-		if (n % 16 < 16)
-			ft_putchar_fd(hex[n % 16], 1);
-		else
-			n = n / 16;
+		ft_hexa(n / 16);
+		ft_putchar_fd(hex[n % 16], 1);
 	}
 }
 
@@ -105,7 +103,7 @@ int	main(void)
 {
 	int	n;
 
-	n = 32;
+	n = 287;
 	ft_hexa(n);
 	return(0);
 
