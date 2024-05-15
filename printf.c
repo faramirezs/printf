@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:20:27 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/13 17:30:35 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:03:47 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_hexa_helper(unsigned long n, char format)
 	int		i;
 
 	i = 0;
-	if (format == "x")
+	if (format == 'x')
 		hex = "0123456789abcdef";
 	else
 		hex = "0123456789ABCDEF";
@@ -74,7 +74,7 @@ void	ft_hexa(unsigned long n, char format)
 	int		i;
 
 	i = 0;
-	if (format == "x")
+	if (format == 'x')
 		hex = "0123456789abcdef";
 	else
 		hex = "0123456789ABCDEF";
@@ -116,6 +116,10 @@ void	ft_write_options(va_list val, char c)
 		ft_hexa((long)va_arg(val, char *), c);
 	else if (c == 'p')
 		ft_pointer((long)va_arg(val, char *));
+	else if (c == 'u')
+		ft_unsigned_int(va_arg(val, unsigned int));
+	else if (c == '%')
+		ft_putchar_fd('%', 1);
 }
 
 int	ft_printf(const char *format, ...)
@@ -149,7 +153,7 @@ int	main(void)
 	s3 = "Areté";
 
 	ft_printf("Test 2: just POINTERS\n");
-	ft_printf("Areté = %p. Areté = %p. Areté = %p.\n\n\n", s1, s2, s3);
+	ft_printf("Areté = %p. Areté = %p. Areté = %%.\n\n\n", s1, s2, s3);
 	printf("Areté = %p. Areté = %p. Areté = %p.\n\n\n", s1, s2, s3);
 
 
