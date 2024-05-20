@@ -1,123 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:20:27 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/20 16:56:03 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:38:15 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
-
-size_t	ft_strlen(char const *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int	ft_putstr(char *s)
-{
-	if (!s)
-		return (ft_putstr("(null)"));
-	return (write(1, s, ft_strlen(s)));
-}
-
-int	ft_putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-int	ft_unsigned_int(unsigned int n)
-{
-	int	len;
-
-	len = 0;
-	if (n > 9)
-		len += ft_unsigned_int(n / 10);
-	len += ft_putchar(n % 10 + '0');
-	return (len);
-}
-
-int	ft_putnbr(int n)
-{
-	int	len;
-
-	len = 0;
-	if (n == -2147483648)
-	{
-		len += ft_putnbr(n / 10);
-		len += ft_putstr("8");
-	}
-	else if (n < 0)
-	{
-		len += ft_putchar('-');
-		len += ft_putnbr(-n);
-	}
-	else
-	{
-		if (n > 9)
-			len += ft_putnbr(n / 10);
-		len += ft_putchar(n % 10 + '0');
-	}
-	return (len);
-}
-
-int	ft_hexa_helper(unsigned long n, char format)
-{
-	char	*hex;
-	int		i;
-	int		len;
-
-	i = 0;
-	len = 0;
-	if (format == 'x')
-		hex = "0123456789abcdef";
-	else
-		hex = "0123456789ABCDEF";
-	if (n > 0)
-	{
-		ft_hexa_helper(n / 16, format);
-		len += ft_putchar(hex[n % 16]);
-	}
-	return (len);
-}
-
-int	ft_hexa(unsigned long n, char format)
-{
-	if (n == 0)
-		return (ft_putchar('0'));
-	else
-		return (ft_hexa_helper(n, format));
-}
-int	ft_pointer_helper(unsigned long n)
-{
-	char	*hex;
-	int		i;
-	int		len;
-
-	i = 0;
-	hex = "0123456789abcdef";
-	len = 0;
-	if (n > 0)
-	{
-		len += ft_pointer_helper(n / 16);
-		len += ft_putchar(hex[n % 16]);
-	}
-	return (len);
-}
-
-int	ft_pointer(unsigned long n)
-{
-	return (ft_putstr("0x") + ft_pointer_helper(n));
-}
+#include "../includes/ft_printf.h"
 
 int	ft_write_options(va_list val, char c)
 {
@@ -162,7 +55,7 @@ int	ft_printf(const char *format, ...)
 	return (len);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	char	*s2;
 	char	*s3;
@@ -175,7 +68,7 @@ int	main(void)
 	int		c;
 	char	*s1;
 	char	*s2;
-	char	*s3;
+	char	*s3; */
 
 	/* char	*s1;
 	s1 = "Areté";
@@ -228,7 +121,7 @@ int	main(void)
 		ft_printf("Test 6: n = pointer\n");
 		printf("Pointer address: %p Integer address: %ld\n", p, (long)p);
 		return(0); */
-	s1 = "Areté";
+/* 	s1 = "Areté";
 	s2 = "Areté";
 	s3 = "Areté";
 	a = -2147483648;
@@ -240,4 +133,4 @@ int	main(void)
 	ft_printf("Areté = %s. Areté = %s. Areté = %s.\n\n\n", s1, s2, s3);
 	ft_printf("Test 3: just integers\n");
 	ft_printf("Areté = %d. Areté = %d. Areté = %%.\n\n\n", a, b, c);
-}
+} */
