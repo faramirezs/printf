@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:20:27 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/15 18:03:47 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:21:26 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,132 +14,141 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	ft_putstr_fd(char *s, int fd)
+size_t	ft_strlen(char const *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
-	{
-		write(fd, &s[i], 1);
 		i++;
-	}
+	return (i);
 }
 
-void	ft_putchar_fd(char c, int fd)
-	{
-		write(fd, &c, 1);
-	}
-
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putstr(char *s)
 {
+	if(!s)
+		return (ft_putstr("(null)"));
+	return(write(1,s,ft_strlen(s)));
+}
+
+int	ft_putchar(char c)
+{
+	return(write(1, &c, 1));
+}
+
+int	ft_putnbr(int n)
+{
+	int	len;
+
+	len = 0;
 	if (n == -2147483648)
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putstr_fd("8", fd);
+		len += ft_putnbr(n / 10);
+		len += ft_putstr("8");
 	}
 	else if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
-		ft_putnbr_fd(-n, fd);
+		len += ft_putchar('-');
+		len += ft_putnbr(-n);
 	}
 	else
 	{
 		if (n > 9)
-			ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(n % 10 + '0', fd);
+			len += ft_putnbr(n / 10);
+		len += ft_putchar(n % 10 + '0');
 	}
+	return(len);
 }
 
-void	ft_hexa_helper(unsigned long n, char format)
+int	ft_hexa_helper(unsigned long n, char format)
 {
 	char	*hex;
 	int		i;
+	int		len;
 
 	i = 0;
+	len = 0;
 	if (format == 'x')
 		hex = "0123456789abcdef";
 	else
 		hex = "0123456789ABCDEF";
 	if (n > 0)
 	{
-		ft_hexa(n / 16, format);
-		ft_putchar_fd(hex[n % 16], 1);
+		ft_hexa_helper(n / 16, format);
+		len += ft_putchar(hex[n % 16]);
 	}
+	return(len);
 }
 
-void	ft_hexa(unsigned long n, char format)
+int	ft_hexa(unsigned long n, char format)
 {
-	char	*hex;
-	int		i;
-
-	i = 0;
-	if (format == 'x')
-		hex = "0123456789abcdef";
+	if (n == 0)
+		return(ft_putchar('0'));
 	else
-		hex = "0123456789ABCDEF";
-	if (n > 0)
-	{
-		ft_hexa(n / 16, format);
-		ft_putchar_fd(hex[n % 16], 1);
-	}
+		return(ft_hexa_helper(n, format));
 }
-void	ft_pointer_helper(unsigned long n)
+int	ft_pointer_helper(unsigned long n)
 {
 	char	*hex;
 	int		i;
+	int		len;
 
 	i = 0;
 	hex = "0123456789abcdef";
+	len = 0;
 	if (n > 0)
 	{
-		ft_pointer_helper(n / 16);
-		ft_putchar_fd(hex[n % 16], 1);
+		len += ft_pointer_helper(n / 16);
+		len += ft_putchar(hex[n % 16]);
 	}
+	return(len);
 }
 
-void	ft_pointer(unsigned long n)
+int	ft_pointer(unsigned long n)
 {
-	ft_putstr_fd("0x", 1);
-	ft_pointer_helper(n);
+	return(ft_putstr("0x") + ft_pointer_helper(n));
 }
 
-void	ft_write_options(va_list val, char c)
+int	ft_write_options(va_list val, char c)
 {
 	if (c == 'd' || c == 'i')
-		ft_putnbr_fd(va_arg(val, int), 1);
+		return(ft_putnbr(va_arg(val, int)));
 	else if (c == 's')
-		ft_putstr_fd(va_arg(val, char *), 1);
+		return(ft_putstr(va_arg(val, char *)));
 	else if (c == 'c')
-		ft_putchar_fd(va_arg(val, char), 1);
+		return(ft_putchar(va_arg(val, int)));
 	else if (c == 'x' || c == 'X')
-		ft_hexa((long)va_arg(val, char *), c);
+		return(ft_hexa((long)va_arg(val, char *), c));
 	else if (c == 'p')
-		ft_pointer((long)va_arg(val, char *));
-	else if (c == 'u')
-		ft_unsigned_int(va_arg(val, unsigned int));
+		return(ft_pointer((long)va_arg(val, char *)));
+/* 	else if (c == 'u')
+		return(ft_unsigned_int(va_arg(val, unsigned int))); */
 	else if (c == '%')
-		ft_putchar_fd('%', 1);
+		return(ft_putchar('%'));
+	return(0);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	int		i;
 	va_list	val;
+	int		len;
 
 	i = 0;
+	len = 0;
 	va_start(val, format);
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
-			ft_write_options(val, format[i + 1]);
+			len += ft_write_options(val, format[i + 1]);
 		}
 		else
-			ft_putchar_fd((format[i]), 1);
+			len += ft_putchar((format[i]));
 		i++;
 	}
 	va_end(val);
+	return(len);
 }
 
 int	main(void)
@@ -153,13 +162,13 @@ int	main(void)
 	s3 = "Areté";
 
 	ft_printf("Test 2: just POINTERS\n");
+	ft_printf("Caracteres impresos: %d\n",ft_printf("Test 2: just POINTERS\n"));
 	ft_printf("Areté = %p. Areté = %p. Areté = %%.\n\n\n", s1, s2, s3);
-	printf("Areté = %p. Areté = %p. Areté = %p.\n\n\n", s1, s2, s3);
+	ft_printf("Caracteres impresos: %d\n",ft_printf("Areté = %p. Areté = %p. Areté = %%.\n\n\n", s1, s2, s3));
+	printf("printf: Areté = %p. Areté = %p. Areté = %p.\n\n\n", s1, s2, s3);
+	printf("printf caracteres impresos: %d\n",ft_printf("Areté = %p. Areté = %p. Areté = %%.\n\n\n", s1, s2, s3));
 
-
-
-
-/* 	long	a;
+	long	a;
 	long	b;
 	long	c;
 
@@ -167,7 +176,13 @@ int	main(void)
 	b = 456;
 	c = 0;
 	ft_printf("Test 1: just zero.\n");
-	ft_printf("Areté. %x Areté. %x Areté. %x\n\n\n", a, b, c); */
+	ft_printf("Caracteres impresos: %d\n",ft_printf("Test 2: just POINTERS\n"));
+	printf("printf caracteres impresos: %d\n",ft_printf("Test 2: just POINTERS\n"));
+	ft_printf("Areté. %x Areté. %x Areté. %x\n\n\n", a, b, c);
+	ft_printf("Caracteres impresos: %d\n",ft_printf("Areté. %x Areté. %x Areté. %x\n\n\n", a, b, c));
+	printf("printf: Areté. %x Areté. %x Areté. %x\n\n\n", a, b, c);
+	printf("printf caracteres impresos: %d\n",ft_printf("Areté. %x Areté. %x Areté. %x\n\n\n", a, b, c));
+
 
 /* 	ft_printf("Test 2: All\n");
 	ft_printf("Areté = %X. Areté = %d. Areté = %d.\n\n\n", a, b, c); */
