@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:58:49 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/22 12:02:25 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:15:21 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <stdarg.h>
 # include <stddef.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 /* Prototypes */
 int		ft_unsigned_int(unsigned int n);

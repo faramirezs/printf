@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:21:07 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/22 12:26:16 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:48:52 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	ft_hexa(unsigned long n, char format)
 	else
 		return (ft_hexa_helper(n, format));
 }
+
 int	ft_pointer_helper(unsigned long n)
 {
 	char	*hex;
