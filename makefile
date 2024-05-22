@@ -6,7 +6,7 @@ SRCS	= ./sources/ft_printf.c \
 
 OBJS	= $(SRCS:.c=.o)
 
-CC	= gcc
+CC	= cc
 
 RM	= rm -f
 
