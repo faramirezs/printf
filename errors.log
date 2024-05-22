@@ -1,0 +1,196 @@
+For c format:
+Error in test 4: ft_printf("%c%c%c", 'a', '\t', 'b'): different memory
+expected:
+0000: 6109 6200                               ->  a.b.
+yours:
+0000: 6161 6100                               ->  aaa.
+
+Error in test 5: ft_printf("%cc%cc%c", 'a', '\t', 'b'): different memory
+expected:
+0000: 6163 0963 6200                          ->  ac.cb.
+yours:
+0000: 6163 6163 6100                          ->  acaca.
+
+Error in test 6: ft_printf("%cs%cs%c", 'c', 'b', 'a'): different memory
+expected:
+0000: 6373 6273 6100                          ->  csbsa.
+yours:
+0000: 6373 6373 6300                          ->  cscsc.
+
+For s format:
+Error in test 6: ft_printf("%s%s%s", "And ", "some", "joined"): returned: 12, but expected: 14
+Error in test 6: ft_printf("%s%s%s", "And ", "some", "joined"): different memory
+expected:
+0000: 416e 6420 736f 6d65 6a6f 696e 6564 00   ->  And somejoined.
+yours:
+0000: 416e 6420 416e 6420 416e 6420 0011 11   ->  And And And ...
+
+Error in test 7: ft_printf("%ss%ss%ss", "And ", "some other", "joined"): returned: 15, but expected: 23
+Error in test 7: ft_printf("%ss%ss%ss", "And ", "some other", "joined"): different memory
+expected:
+0000: 416e 6420 7373 6f6d 6520 6f74 6865 7273 ->  And ssome others
+0010: 6a6f 696e 6564 7300                     ->  joineds.
+yours:
+0000: 416e 6420 7341 6e64 2073 416e 6420 7300 ->  And sAnd sAnd s.
+
+For p format:
+Error in test 2: ft_printf("%p", NULL): returned: 2, but expected: 3
+Error in test 2: ft_printf("%p", NULL): different memory
+expected:
+0000: 3078 3000                               ->  0x0.
+yours:
+0000: 3078 0011                               ->  0x..
+
+Error in test 5: ft_printf("%pp%p%p", (void *)LONG_MAX + 423856, (void *)0, (void *)INT_MAX): returned: 55, but expected: 32
+Error in test 5: ft_printf("%pp%p%p", (void *)LONG_MAX + 423856, (void *)0, (void *)INT_MAX): different memory
+expected:
+0000: 3078 3830 3030 3030 3030 3030 3036 3737 ->  0x80000000000677
+0010: 6166 7030 7830 3078 3766 6666 6666 6666 ->  afp0x00x7fffffff
+0020: 0011 1111 1111 1111 1111 1111 1111 1111 ->  ................
+yours:
+0000: 3078 3830 3030 3030 3030 3030 3036 3737 ->  0x80000000000677
+0010: 6166 7030 7838 3030 3030 3030 3030 3030 ->  afp0x80000000000
+0020: 3637 3761 6630 7838 3030 3030 3030 3030 ->  677af0x800000000
+0030: 3030 3637 3761 6600                     ->  00677af.
+
+For d format:
+Error in test 11: ft_printf("%d%dd%d", 1, 2, -3): returned: 4, but expected: 5
+Error in test 11: ft_printf("%d%dd%d", 1, 2, -3): different memory
+expected:
+0000: 3132 642d 3300                          ->  12d-3.
+yours:
+0000: 3131 6431 0011                          ->  11d1..
+
+For i format:
+Error in test 11: ft_printf("%i%ii%i", 1, 2, -3): returned: 4, but expected: 5
+Error in test 11: ft_printf("%i%ii%i", 1, 2, -3): different memory
+expected:
+0000: 3132 692d 3300                          ->  12i-3.
+yours:
+0000: 3131 6931 0011                          ->  11i1..
+
+For u format:
+Error in test 12: ft_printf("%u%uu%u", 1, 2, -3): returned: 4, but expected: 13
+Error in test 12: ft_printf("%u%uu%u", 1, 2, -3): different memory
+expected:
+0000: 3132 7534 3239 3439 3637 3239 3300      ->  12u4294967293.
+yours:
+0000: 3131 7531 0011 1111 1111 1111 1111      ->  11u1..........
+
+For x format:
+Error in test 2: ft_printf("%x", -10): returned: 1, but expected: 8
+Error in test 2: ft_printf("%x", -10): different memory
+expected:
+0000: 6666 6666 6666 6636 0011 1111 1111 1111 ->  fffffff6........
+yours:
+0000: 6666 6666 6666 6666 6666 6666 6666 6636 ->  fffffffffffffff6
+0010: 00                                      ->  .
+
+Error in test 3: ft_printf("%x", -200000): returned: 1, but expected: 8
+Error in test 3: ft_printf("%x", -200000): different memory
+expected:
+0000: 6666 6663 6632 6330 0011 1111 1111 1111 ->  fffcf2c0........
+yours:
+0000: 6666 6666 6666 6666 6666 6663 6632 6330 ->  fffffffffffcf2c0
+0010: 00                                      ->  .
+
+Error in test 4: ft_printf("%x", -6000023): returned: 1, but expected: 8
+Error in test 4: ft_printf("%x", -6000023): different memory
+expected:
+0000: 6666 6134 3732 3639 0011 1111 1111 1111 ->  ffa47269........
+yours:
+0000: 6666 6666 6666 6666 6666 6134 3732 3639 ->  ffffffffffa47269
+0010: 00                                      ->  .
+
+Error in test 6: ft_printf("%x", 10000): returned: 1, but expected: 4
+Error in test 7: ft_printf("%x", 100023): returned: 1, but expected: 5
+Error in test 8: ft_printf("%x", 0xabcdef): returned: 1, but expected: 6
+Error in test 9: ft_printf("%x", 0x7fedcba1): returned: 1, but expected: 8
+Error in test 10: ft_printf("%x", INT_MAX): returned: 1, but expected: 8
+Error in test 11: ft_printf("%x", INT_MIN): returned: 1, but expected: 8
+Error in test 11: ft_printf("%x", INT_MIN): different memory
+expected:
+0000: 3830 3030 3030 3030 0011 1111 1111 1111 ->  80000000........
+yours:
+0000: 6666 6666 6666 6666 3830 3030 3030 3030 ->  ffffffff80000000
+0010: 00                                      ->  .
+
+Error in test 12: ft_printf("%x", UINT_MAX): returned: 1, but expected: 8
+Error in test 12: ft_printf("%x", UINT_MAX): different memory
+expected:
+0000: 6666 6666 6666 6666 0011 1111 1111 1111 ->  ffffffff........
+yours:
+0000: 6666 6666 6666 6666 6666 6666 6666 6666 ->  ffffffffffffffff
+0010: 00                                      ->  .
+
+Error in test 14: ft_printf("%x%xx%x", 1, 2, -3): returned: 4, but expected: 11
+Error in test 14: ft_printf("%x%xx%x", 1, 2, -3): different memory
+expected:
+0000: 3132 7866 6666 6666 6666 6400           ->  12xfffffffd.
+yours:
+0000: 3131 7831 0011 1111 1111 1111           ->  11x1........
+
+For X format:
+Error in test 2: ft_printf("%X", -10): returned: 1, but expected: 8
+Error in test 2: ft_printf("%X", -10): different memory
+expected:
+0000: 4646 4646 4646 4636 0011 1111 1111 1111 ->  FFFFFFF6........
+yours:
+0000: 4646 4646 4646 4646 4646 4646 4646 4636 ->  FFFFFFFFFFFFFFF6
+0010: 00                                      ->  .
+
+Error in test 3: ft_printf("%X", -200000): returned: 1, but expected: 8
+Error in test 3: ft_printf("%X", -200000): different memory
+expected:
+0000: 4646 4643 4632 4330 0011 1111 1111 1111 ->  FFFCF2C0........
+yours:
+0000: 4646 4646 4646 4646 4646 4643 4632 4330 ->  FFFFFFFFFFFCF2C0
+0010: 00                                      ->  .
+
+Error in test 4: ft_printf("%X", -6000023): returned: 1, but expected: 8
+Error in test 4: ft_printf("%X", -6000023): different memory
+expected:
+0000: 4646 4134 3732 3639 0011 1111 1111 1111 ->  FFA47269........
+yours:
+0000: 4646 4646 4646 4646 4646 4134 3732 3639 ->  FFFFFFFFFFA47269
+0010: 00                                      ->  .
+
+Error in test 6: ft_printf("%X", 10000): returned: 1, but expected: 4
+Error in test 7: ft_printf("%X", 100023): returned: 1, but expected: 5
+Error in test 8: ft_printf("%X", 0xabcdef): returned: 1, but expected: 6
+Error in test 9: ft_printf("%X", 0x7fedcba1): returned: 1, but expected: 8
+Error in test 10: ft_printf("%X", INT_MAX): returned: 1, but expected: 8
+Error in test 11: ft_printf("%X", INT_MIN): returned: 1, but expected: 8
+Error in test 11: ft_printf("%X", INT_MIN): different memory
+expected:
+0000: 3830 3030 3030 3030 0011 1111 1111 1111 ->  80000000........
+yours:
+0000: 4646 4646 4646 4646 3830 3030 3030 3030 ->  FFFFFFFF80000000
+0010: 00                                      ->  .
+
+Error in test 12: ft_printf("%X", UINT_MAX): returned: 1, but expected: 8
+Error in test 12: ft_printf("%X", UINT_MAX): different memory
+expected:
+0000: 4646 4646 4646 4646 0011 1111 1111 1111 ->  FFFFFFFF........
+yours:
+0000: 4646 4646 4646 4646 4646 4646 4646 4646 ->  FFFFFFFFFFFFFFFF
+0010: 00                                      ->  .
+
+Error in test 14: ft_printf("%X%Xx%X", 1, 2, -3): returned: 4, but expected: 11
+Error in test 14: ft_printf("%X%Xx%X", 1, 2, -3): different memory
+expected:
+0000: 3132 7846 4646 4646 4646 4400           ->  12xFFFFFFFD.
+yours:
+0000: 3131 7831 0011 1111 1111 1111           ->  11x1........
+
+For random:
+Error in test 1: ft_printf("h/qUU3\%djW,c%s6!CXm `%%0%s!-}HQ-hR%X>SE9D%d\nYHf\fhv", 1975350964, "+8{]R\vX#b/\vzjM\nc\f)(M-EPdPt0O;'Y-Qe[vkL", "_\rth\\cK{:\f/)l_Jbu78Xb&U:mE]1OtjVJzkv6W\n4NIUW-,OS(gn(SHMrSU%)0V", 474024541, -773222926): Segmentation fault!
+     in pf_show_signal_msg pf_utils.c:51:15
+     in pf_sigsegv pf_utils.c:64:1
+  -> in ft_putstr ft_words.c:29:22
+     in ft_putstr ft_words.c:29:22
+     in ft_write_options ft_printf.c:20:3
+     in ft_printf ft_printf.c:47:8
+     in main mandatory.c:162:2
+8   dyld                                0x000000019d3ba0e0 start + 2360
+
