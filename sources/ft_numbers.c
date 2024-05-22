@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:21:07 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/20 17:24:50 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:26:16 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ int	ft_putnbr(int n)
 int	ft_hexa_helper(unsigned long n, char format)
 {
 	char	*hex;
-	int		i;
 	int		len;
 
-	i = 0;
 	len = 0;
 	if (format == 'x')
 		hex = "0123456789abcdef";
@@ -77,10 +75,8 @@ int	ft_hexa(unsigned long n, char format)
 int	ft_pointer_helper(unsigned long n)
 {
 	char	*hex;
-	int		i;
 	int		len;
 
-	i = 0;
 	hex = "0123456789abcdef";
 	len = 0;
 	if (n > 0)

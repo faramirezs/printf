@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:58:49 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/20 17:38:18 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:02:25 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ft_pointer(unsigned long n);
 size_t	ft_strlen(char const *s);
 int		ft_putstr(char *s);
 int		ft_putchar(char c);
-int	ft_write_options(va_list val, char c);
-int	ft_printf(const char *format, ...);
+int		ft_write_options(va_list val, char c);
+int		ft_printf(const char *format, ...);
 
 #endif

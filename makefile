@@ -1,39 +1,32 @@
-NAME = libftprintf.a
-CC = cc -c
-FLAGS = -Wall -Wextra -Werror
-AR = ar rcs
-RM = rm -f
-LIB	= ranlib
-INCLUDE = -I includes
+NAME	= libftprintf.a
 
-# SRCS = *.c
-SRCS = ./sources/ft_printf.c \
-	   	./sources/ft_numbers.c \
-		./sources/ft_words.c \
-# OBJS = *.o
-OBJS = $(SRCS:.c=.o) # This is a substitution pattern, where the files ends with c it replaces with o
+SRCS	= ./sources/ft_printf.c \
+       	./sources/ft_numbers.c \
+	./sources/ft_words.c \
 
-all: $(NAME)
+OBJS	= $(SRCS:.c=.o)
 
-$(NAME):$(OBJS)
-#	 $(CC) $(FLAGS) -c
-	$(AR) $(INCLUDES) $(NAME) $(OBJS)
-	$(LIB) $(NAME)
+CC	= gcc
 
-%.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
-#$(NAME):
-#	$(CC)  $(FLAGS) $(SRCS)
-#	$(AR)  $(NAME) $(OBJS)
-#	$(LIB) $(NAME)
+RM	= rm -f
 
+CFLAGS	= -Wall -Wextra -Werror
+
+all:	$(NAME)
+
+$(NAME):	$(OBJS)
+	    ar rcs $(NAME) $(OBJS)
+
+.c.o:
+	    $(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS)
+	    $(RM) $(OBJS)
 
-fclean: clean
-	$(RM) $(NAME)
+fclean:		clean
+	    $(RM) $(NAME)
 
-re: fclean all
+re:			fclean all
 
-.PHONY: all clean fclean re
+
+.PHONY:		all clean fclean re
