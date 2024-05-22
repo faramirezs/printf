@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:21:07 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/22 12:48:52 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:24:48 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ int	ft_pointer_helper(unsigned long n)
 
 int	ft_pointer(unsigned long n)
 {
+	if(!n)
+		return(ft_putstr("(nil)"));
 	return (ft_putstr("0x") + ft_pointer_helper(n));
 }
