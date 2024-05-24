@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:21:07 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/23 17:41:31 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:30:27 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,37 +47,10 @@ int	ft_putnbr(int n)
 	return (len);
 }
 
-int	ft_hexa_helper(unsigned long n, char format)
-{
-	const char	*hex_small = "0123456789abcdef";
-	const char	*hex_big = "0123456789ABCDEF";
-	int		len;
-
-	len = 0;
-	if (n > 0)
-	{
-		ft_hexa_helper(n / 16, format);
-		if (format == 'x')
-			len += ft_putchar(hex_small[n % 16]);
-		if (format == 'X')
-			len += ft_putchar(hex_big[n % 16]);
-
-	}
-	return (len);
-}
-
-int	ft_hexa(unsigned long n, char format)
-{
-	if (n == 0)
-		return (ft_putchar('0'));
-	else
-		return (ft_hexa_helper(n, format));
-}
-
 int	ft_pointer_helper(unsigned long n)
 {
 	const char	*hex = "0123456789abcdef";
-	int		len;
+	int			len;
 
 	len = 0;
 	if (n > 0)
@@ -90,7 +63,7 @@ int	ft_pointer_helper(unsigned long n)
 
 int	ft_pointer(unsigned long n)
 {
-	if(!n)
-		return(ft_putstr("(nil)"));
+	if (!n)
+		return (ft_putstr("(nil)"));
 	return (ft_putstr("0x") + ft_pointer_helper(n));
 }

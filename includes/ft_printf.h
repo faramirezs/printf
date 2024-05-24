@@ -6,7 +6,7 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:58:49 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/22 13:15:21 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:30:08 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 /* Prototypes */
 int		ft_unsigned_int(unsigned int n);
 int		ft_putnbr(int n);
-int		ft_hexa_helper(unsigned long n, char format);
-int		ft_hexa(unsigned long n, char format);
+int		ft_hexa_helper(unsigned int n, char format);
+int		ft_hexa(unsigned int n, char format);
 int		ft_pointer_helper(unsigned long n);
 int		ft_pointer(unsigned long n);
 size_t	ft_strlen(char const *s);
