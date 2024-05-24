@@ -6,9 +6,11 @@
 /*   By: alramire <alramire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:29:11 by alramire          #+#    #+#             */
-/*   Updated: 2024/05/24 15:29:51 by alramire         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:39:03 by alramire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/ft_printf.h"
 
 int	ft_hexa_helper(unsigned int n, char format)
 {
